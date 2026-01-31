@@ -6,25 +6,23 @@
   <title>Chef Burger – Menu</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* BOTÃO MENU MOBILE */
+    /* BOTÃO MENU MOBILE DENTRO DO HEADER */
     .btn-menu-mobile {
-  display: none;
-  position: fixed;
-  top: 85px;              /* logo abaixo do header de 80px */
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--blue);
-  color: #fff;
-  font-weight: bold;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 8px;
-  width: 90%;
-  text-align: center;
-  z-index: 1001;          /* garante que fica acima do conteúdo */
-}
+      display: none;
+      position: absolute;
+      bottom: 5px;          /* canto inferior do header */
+      right: 2cm;           /* deslocado 2cm da borda direita */
+      background: var(--blue);
+      color: #fff;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      text-align: center;
+      z-index: 1001;
+    }
 
-    /* MENU RECOLHÍVEL */
+    /* MENU RECOLHÍVEL MOBILE */
     .menu-mobile {
       display: none;
       flex-direction: column;
@@ -32,6 +30,12 @@
       padding: 0.6rem;
       background: var(--bg);
       border-bottom: 1px solid #eee;
+      position: fixed;
+      top: 130px;             /* aparece logo abaixo do header */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95%;
+      z-index: 2000;          /* garante que fica acima do conteúdo */
     }
 
     .menu-mobile select,
@@ -58,10 +62,9 @@
         <img src="imagens/logo-chefburger.jpg" alt="Chef Burger AO" />
       </a>
     </div>
+    <!-- BOTÃO MENU MOBILE DENTRO DO HEADER -->
+    <button class="btn-menu-mobile" onclick="toggleMenu()">Explorar</button>
   </header>
-
-  <!-- BOTÃO MENU MOBILE -->
-  <button class="btn-menu-mobile" onclick="toggleMenu()">Explorar</button>
 
   <!-- MENU RECOLHÍVEL MOBILE -->
   <nav class="menu-mobile" id="menuMobile">
@@ -84,10 +87,11 @@
       <option value="sopas">Sopas</option>
     </select>
     <button onclick="resetarFiltro()" class="btn-nav limpar">🔄 Limpar Filtro</button>
-    <a href="encomendas.html" class="btn-nav">Encomendas</a>
+    <a href="index.html" class="btn-nav">Menu</a>
     <a href="informacoes.html" class="btn-nav">Informações</a>
     <a href="https://wa.me/244925918468" class="btn-nav whatsapp">Posso Ajudar?</a>
   </nav>
+
 
 
   <!-- BARRA DE NAVEGAÇÃO DESKTOP -->
@@ -901,3 +905,6 @@
   </script>
 </body>
 </html>
+
+
+
