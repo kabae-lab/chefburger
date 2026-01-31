@@ -1,0 +1,309 @@
+:root {
+  --primary: #000;       /* preto institucional */
+  --accent: #FFD700;     /* dourado */
+  --blue: #007BFF;       /* azul institucional */
+  --green: #25D366;      /* verde WhatsApp */
+  --bg: #fff8f8;
+  --text: #222;
+  --card: #fff;
+  --gray: #cccccc;
+}
+
+/* RESET */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  z-index: 1000;
+}
+.logo img { height: 65px; }
+
+header .btn-nav.whatsapp {
+  position: absolute;
+  bottom: 5px;
+  right: 2cm;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+header .btn-nav.whatsapp img {
+  height: 18px;
+  margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+  header .btn-nav.whatsapp {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Remove WhatsApp do header */
+  header .btn-nav.whatsapp {
+    display: none;
+  }
+
+  /* Barra de navegação em blocos verticais */
+  .barra-navegacao {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.6rem;
+    gap: 0.4rem;
+  }
+
+  /* Botões mais compactos */
+  .barra-navegacao select,
+  .barra-navegacao .btn-nav {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  /* WhatsApp dentro da barra */
+  .btn-nav.whatsapp {
+    background: var(--green);
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+/* BARRA DE NAVEGAÇÃO */
+.barra-navegacao {
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  background: var(--bg);
+  border-bottom: 1px solid #eee;
+  padding: 0.8rem;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 999;
+  overflow-x: auto;
+}
+
+.barra-navegacao select,
+.barra-navegacao .btn-nav {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  min-width: 120px;
+  text-align: center;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.barra-navegacao select {
+  width: auto;              /* ajusta automaticamente ao conteúdo */
+  min-width: 200px;         /* largura mínima para não ficar apertado */
+  max-width: 100%;          /* nunca ultrapassa a barra */
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+  text-align: left;
+  text-align-last: left;
+  box-sizing: border-box;
+}
+
+
+.btn-nav {
+  background: var(--blue);
+  color: #fff;
+}
+.btn-nav.limpar {
+  background: var(--gray);
+  color: #000;
+}
+.btn-nav.whatsapp {
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-carrinho-flutuante {
+  display: none;
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: bold;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1001;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-carrinho-flutuante:hover {
+  background: #0056b3;
+}
+
+/* Mostrar apenas em mobile */
+@media (max-width: 768px) {
+  .btn-carrinho-flutuante {
+    display: block;
+  }
+}
+
+.btn-nav.whatsapp img {
+  height: 18px;
+  margin-right: 6px;
+}
+
+/* MAIN CONTENT */
+main.content {
+  margin-top: 150px;   /* espaço para header + barra */
+  margin-bottom: 35px; /* espaço para footer */
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+/* PRODUTO */
+.product {
+  background: var(--card);
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  padding: 0.9rem;
+  text-align: center;
+  width: 220px;
+  height: auto; /* antes era fixo */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+
+.product h3 {
+  margin: 0.4rem 0;
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+.product img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.price {
+  font-weight: bold;
+  color: var(--primary);
+  font-size: 1.05rem;
+}
+
+.btn-add {
+  background-color: #ff6600;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+.btn-add.clicked {
+  background-color: #25D366; /* verde institucional */
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Sugestões */
+.sugestao {
+  display: none;
+  font-size: 0.85rem;
+  color: #000; /* cor preta institucional */
+  margin-top: 6px;
+  padding: 4px 6px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  z-index: 10;
+  position: relative;
+}
+
+
+/* FOOTER */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35px;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.85rem;
+  z-index: 1000;
+}
+.footer-content {
+  width: 100%;
+  text-align: center;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .barra-navegacao {
+    flex-direction: column;
+    align-items: stretch;   /* ocupa toda a largura */
+  }
+
+  .barra-navegacao select,
+  .barra-navegacao .btn-nav {
+    min-width: 100%;
+  }
+  .product {
+    width: 100%;            /* ocupa toda a largura da coluna */
+  }
+
+.product img {
+    width: 100%;            /* imagem proporcional */
+    height: auto;           /* evita corte em telas pequenas */
+    max-height: 200px;      /* limite para não estourar */
+    object-fit: contain;
+  }
+
+  .footer-content { flex-direction: column; text-align: center; }
+}
