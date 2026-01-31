@@ -1,909 +1,114 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chef Burger – Menu</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* BOTÃO MENU MOBILE DENTRO DO HEADER */
-	
-    .btn-menu-mobile {
-  display: block;          /* sempre visível */
-  position: absolute;
-  bottom: 5px;             /* canto inferior do header */
-  right: 2cm;              /* deslocado 2cm da borda direita */
-  background: var(--blue);
-  color: #fff;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  text-align: center;
-  z-index: 1001;
+// Alterna menu mobile
+function toggleMenu() {
+  const menu = document.getElementById("menuMobile");
+  menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
 }
 
+// Filtrar produtos por categoria (mobile + desktop)
+function filtrarCategoria() {
+  const filtros = document.querySelectorAll("#filtro-categoria, #filtro-categoria-desktop");
+  let filtroSelecionado = "todos";
 
-    /* MENU RECOLHÍVEL MOBILE */
-    .menu-mobile {
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.6rem;
-      background: var(--bg);
-      border-bottom: 1px solid #eee;
-      position: fixed;
-      top: 130px;             /* aparece logo abaixo do header */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 95%;
-      z-index: 2000;          /* garante que fica acima do conteúdo */
+  filtros.forEach(select => {
+    if (select.value !== "todos") {
+      filtroSelecionado = select.value.toLowerCase(); // garantir minúsculo
     }
-
-    .menu-mobile select,
-    .menu-mobile .btn-nav {
-      width: 100%;
-      font-size: 0.85rem;
-      padding: 0.6rem 0.8rem;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    @media (max-width: 768px) {
-      .barra-navegacao { display: none; }
-      .btn-menu-mobile { display: block; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- HEADER -->
-  <header>
-    <div class="logo">
-      <a href="index.html">
-        <img src="imagens/logo-chefburger.jpg" alt="Chef Burger AO" />
-      </a>
-    </div>
-    <!-- BOTÃO MENU MOBILE DENTRO DO HEADER -->
-    <button class="btn-menu-mobile" onclick="toggleMenu()">Explorar</button>
-  </header>
-
-  <!-- MENU RECOLHÍVEL MOBILE -->
-  <nav class="menu-mobile" id="menuMobile">
-    <select id="filtro-categoria" onchange="filtrarCategoria()">
-      <option value="todos">Todos</option>
-      <option value="hamburguer">Hamburgueres</option>
-      <option value="espaguete">Espaguetes</option>
-      <option value="fahita">Fahitas</option>
-      <option value="frango">Frangos</option>
-      <option value="grelhados">Grelhados</option>
-      <option value="kafta">Kafta</option>
-      <option value="meze">Meze</option>
-      <option value="pizza">Pizzas</option>
-      <option value="frias">Bebidas Frias</option>
-      <option value="sobremesas">Sobremesas</option>
-      <option value="bebidas-quentes">Bebidas Quentes</option>
-      <option value="sumos">Sumos Naturais</option>
-      <option value="matabicho">Matabicho</option>
-      <option value="doses">Doses</option>
-      <option value="sopas">Sopas</option>
-    </select>
-    <button onclick="resetarFiltro()" class="btn-nav limpar">🔄 Limpar Filtro</button>
-    <a href="index.html" class="btn-nav">Menu</a>
-    <a href="informacoes.html" class="btn-nav">Informações</a>
-    <a href="https://wa.me/244925918468" class="btn-nav whatsapp">Posso Ajudar?</a>
-  </nav>
-
-
-
-  <!-- BARRA DE NAVEGAÇÃO DESKTOP -->
-  <nav class="barra-navegacao">
-    <select id="filtro-categoria" onchange="filtrarCategoria()">
-      <option value="todos">Todos</option>
-      <option value="hamburguer">Hamburgueres</option>
-      <option value="espaguete">Espaguetes</option>
-      <option value="fahita">Fahitas</option>
-      <option value="frango">Frangos</option>
-      <option value="grelhados">Grelhados</option>
-      <option value="kafta">Kafta</option>
-      <option value="meze">Meze</option>
-      <option value="pizza">Pizzas</option>
-      <option value="frias">Bebidas Frias</option>
-      <option value="sobremesas">Sobremesas</option>
-      <option value="bebidas-quentes">Bebidas Quentes</option>
-      <option value="sumos">Sumos Naturais</option>
-      <option value="matabicho">Matabicho</option>
-      <option value="doses">Doses</option>
-      <option value="sopas">Sopas</option>
-    </select>
-
-
-	<button onclick="resetarFiltro()" class="btn-nav limpar">Limpar</button>
-    <a href="encomendas.html" class="btn-nav">Encomenda</a>
-    <a href="informacoes.html" class="btn-nav">Informações</a>
-    <a href="https://wa.me/244925918468" class="btn-nav whatsapp">Posso Ajudar?</a>
-    
-  </nav>
-
-
-
-
-
-  <!-- MAIN CONTENT -->
-  <main class="content premium">
-  
-    <!-- Exemplo de produtos -->
-	
-    <!-- Hamburgueres -->
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/abacate-cheeseburger.jpg" alt="Abacate Cheeseburger">
-    <h3>Abacate Cheeseburger</h3>
-    <div class="price" data-preco="9000">9.000,00 KZ</div>
-    <button onclick="adicionarItem('p001','Abacate Cheeseburger',9000,'sug001')">Adicionar</button>
-    <div class="sugestao" id="sug001"></div>
-  </div>
-
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/abacaxi-burger.jpg" alt="Abacaxi Burger">
-    <h3>Abacaxi Burger</h3>
-    <div class="price" data-preco="9000">9.000,00 KZ</div>
-    <button onclick="adicionarItem('p002','Abacaxi Burger',9000,'sug002')">Adicionar</button>
-    <div class="sugestao" id="sug002"></div>
-  </div>
-
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/ankara-burger.jpg" alt="Ankara Burger">
-    <h3>Ankara Burger</h3>
-    <div class="price" data-preco="11000">11.000,00 KZ</div>
-    <button onclick="adicionarItem('p003','Ankara Burger',11000,'sug003')">Adicionar</button>
-    <div class="sugestao" id="sug003"></div>
-  </div>
-
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/atum-burger.jpg" alt="Atum Burger">
-    <h3>Atum Burger</h3>
-    <div class="price" data-preco="10000">10.000,00 KZ</div>
-    <button onclick="adicionarItem('p004','Atum Burger',10000,'sug004')">Adicionar</button>
-    <div class="sugestao" id="sug004"></div>
-  </div>
-
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/big-burger.jpg" alt="Big Burger">
-    <h3>Big Burger</h3>
-    <div class="price" data-preco="10500">10.500,00 KZ</div>
-    <button onclick="adicionarItem('p005','Big Burger',10500,'sug005')">Adicionar</button>
-    <div class="sugestao" id="sug005"></div>
-  </div>
-
-  <div class="product" data-categoria="grelhados">
-    <img src="imagens/carne-grelhada.jpg" alt="Carne Grelhada">
-    <h3>Carne Grelhada</h3>
-    <div class="price" data-preco="14000">14.000,00 KZ</div>
-    <button onclick="adicionarItem('p006','Carne Grelhada',14000,'sug006')">Adicionar</button>
-    <div class="sugestao" id="sug006"></div>
-  </div>
-
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/chef-burger.jpg" alt="Chef Burger">
-    <h3>Chef Burger</h3>
-    <div class="price" data-preco="8500">8.500,00 KZ</div>
-    <button onclick="adicionarItem('p007','Chef Burger',8500,'sug007')">Adicionar</button>
-    <div class="sugestao" id="sug007"></div>
-  </div>
-
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/cogumelo-cheeseburger.jpg" alt="Cogumelo Cheeseburger">
-    <h3>Cogumelo Cheeseburger</h3>
-    <div class="price" data-preco="9000">9.000,00 KZ</div>
-    <button onclick="adicionarItem('p008','Cogumelo Cheeseburger',9000,'sug008')">Adicionar</button>
-    <div class="sugestao" id="sug008"></div>
-  </div>
-
-  <!-- Espaguetes -->
-  <div class="product" data-categoria="espaguete">
-    <img src="imagens/espagueta-almondegas.jpg" alt="Espagueta Almondegas">
-    <h3>Espagueta Almondegas</h3>
-    <div class="price" data-preco="14500">14.500,00 KZ</div>
-    <button onclick="adicionarItem('p009','Espagueta Almondegas',4700,'sug009')">Adicionar</button>
-    <div class="sugestao" id="sug009"></div>
-  </div>
-
-  <div class="product" data-categoria="espaguete">
-    <img src="imagens/espagueta-bolonhesa.jpg" alt="Espagueta Bolonhesa">
-    <h3>Espagueta Bolonhesa</h3>
-    <div class="price" data-preco="14000">14.000,00 KZ</div>
-    <button onclick="adicionarItem('p010','Espagueta Bolonhesa',14000,'sug010')">Adicionar</button>
-    <div class="sugestao" id="sug010"></div>
-  </div>
-
-  <div class="product" data-categoria="espaguete">
-    <img src="imagens/espagueta-satum.jpg" alt="Espagueta de Atum">
-    <h3>Espagueta de Atum</h3>
-    <div class="price" data-preco="14500">14.500,00 KZ</div>
-    <button onclick="adicionarItem('p011','Espagueta de Atum',14500,'sug011')">Adicionar</button>
-    <div class="sugestao" id="sug011"></div>
-  </div>
-
-  <div class="product" data-categoria="espaguete">
-    <img src="imagens/esparguete-com.jpg" alt="Esparguete Com Camarão">
-    <h3>Esparguete Com Camarão</h3>
-    <div class="price" data-preco="15500">15.500,00 KZ</div>
-    <button onclick="adicionarItem('p012','Esparguete Com Camarão',15500,'sug012')">Adicionar</button>
-    <div class="sugestao" id="sug012"></div>
-  </div>
-
-  <div class="product" data-categoria="espaguete">
-    <img src="imagens/esparguete-frango.jpg" alt="Esparguete Frango">
-    <h3>Esparguete Frango</h3>
-    <div class="price" data-preco="13000">13.000,00 KZ</div>
-    <button onclick="adicionarItem('p013','Esparguete Frango',13000,'sug013')">Adicionar</button>
-    <div class="sugestao" id="sug013"></div>
-  </div>
-
-  <!-- Fahitas -->
-  <div class="product" data-categoria="fahita">
-    <img src="imagens/fahita-almondegas.jpg" alt="Fahita Almondegas">
-    <h3>Fahita de Almondegas</h3>
-    <div class="price" data-preco="8000">8.000,00 KZ</div>
-    <button onclick="adicionarItem('p014','Fahita Almondegas',8000,'sug014')">Adicionar</button>
-    <div class="sugestao" id="sug014"></div>
-  </div>
-
-  <div class="product" data-categoria="fahita">
-    <img src="imagens/fahita-atum.jpg" alt="Fahita Atum">
-    <h3>Fahita Atum</h3>
-    <div class="price" data-preco="9500">9.500,00 KZ</div>
-    <button onclick="adicionarItem('p015','Fahita Atum',9500,'sug015')">Adicionar</button>
-    <div class="sugestao" id="sug015"></div>
-  </div>
-
-  <div class="product" data-categoria="fahita">
-  <img src="imagens/fahita-camarao.jpg" alt="Fahita Camarão">
-  <h3>Fahita de Camarão</h3>
-  <div class="price" data-preco="10500">10.500,00 KZ</div>
-  <button onclick="adicionarItem('p046','Fahita Camarão',10500,'sug046')">Adicionar</button>
-  <div class="sugestao" id="sug046"></div>
-</div>	
-	
-	 <!-- Fahitas -->
-  <div class="product" data-categoria="fahita">
-    <img src="imagens/fahita-carne.jpg" alt="Fahita Carne">
-    <h3>Fahita de  Carne</h3>
-    <div class="price" data-preco="8000">8.000,00 KZ</div>
-    <button onclick="adicionarItem('p016','Fahita Carne',8000,'sug016')">Adicionar</button>
-    <div class="sugestao" id="sug016"></div>
-  </div>
-
-  <div class="product" data-categoria="fahita">
-    <img src="imagens/fahita-frango.jpg" alt="Fahita Frango">
-    <h3>Fahita Frango</h3>
-    <div class="price" data-preco="7500">7.500,00 KZ</div>
-    <button onclick="adicionarItem('p017','Fahita Frango',7500,'sug017')">Adicionar</button>
-    <div class="sugestao" id="sug017"></div>
-  </div>
-
-  <div class="product" data-categoria="fahita">
-    <img src="imagens/fahita-mista.jpg" alt="Fahita Mista">
-    <h3>Fahita Mista</h3>
-    <div class="price" data-preco="9000">9.000,00 KZ</div>
-    <button onclick="adicionarItem('p018','Fahita Mista',9000,'sug018')">Adicionar</button>
-    <div class="sugestao" id="sug018"></div>
-  </div>
-
-  <!-- Frangos -->
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/frango-burger.jpg" alt="Frango Burger">
-    <h3>Frango Burger</h3>
-    <div class="price" data-preco="8500">8.500,00 KZ</div>
-    <button onclick="adicionarItem('p019','Frango Burger',8500,'sug019')">Adicionar</button>
-    <div class="sugestao" id="sug019"></div>
-  </div>
-
-  <div class="product" data-categoria="frango">
-    <img src="imagens/frango-com-molho.jpg" alt="Frango com Molho">
-    <h3>Frango com Molho</h3>
-    <div class="price" data-preco="13500">13.500,00 KZ</div>
-    <button onclick="adicionarItem('p020','Frango com Molho',13500,'sug020')">Adicionar</button>
-    <div class="sugestao" id="sug020"></div>
-  </div>
-
-  <div class="product" data-categoria="frango">
-    <img src="imagens/frango-crocante.jpg" alt="Frango Crocante">
-    <h3>Frango Crocante</h3>
-    <div class="price" data-preco="14000">14.000,00 KZ</div>
-    <button onclick="adicionarItem('p021','Frango Crocante',14000,'sug021')">Adicionar</button>
-    <div class="sugestao" id="sug021"></div>
-  </div>
-
-  <div class="product" data-categoria="frango">
-    <img src="imagens/frango-grelhado.jpg" alt="Frango Grelhado">
-    <h3>Frango Grelhado</h3>
-    <div class="price" data-preco="13000">13.200,00 KZ</div>
-    <button onclick="adicionarItem('p022','Frango Grelhado',13000,'sug022')">Adicionar</button>
-    <div class="sugestao" id="sug022"></div>
-  </div>
-
-  <!-- Grelhados -->
-  <div class="product" data-categoria="grelhados">
-    <img src="imagens/grelhada-bitoque.jpg" alt="Grelhada Bitoque">
-    <h3>Grelhada Bitoque</h3>
-    <div class="price" data-preco="14500">14.500,00 KZ</div>
-    <button onclick="adicionarItem('p023','Grelhada Bitoque',14500,'sug023')">Adicionar</button>
-    <div class="sugestao" id="sug023"></div>
-  </div>
-
-  <div class="product" data-categoria="grelhados">
-    <img src="imagens/grelhado-misto.jpg" alt="Grelhado Misto">
-    <h3>Grelhado Misto</h3>
-    <div class="price" data-preco="16000">16.000,00 KZ</div>
-    <button onclick="adicionarItem('p024','Grelhado Misto',16000,'sug024')">Adicionar</button>
-    <div class="sugestao" id="sug024"></div>
-  </div>
-
-  <!-- Hamburgueres especiais -->
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/instanbul-cheeseburger.jpg" alt="Instanbul Cheeseburger">
-    <h3>Instanbul Cheeseburger</h3>
-    <div class="price" data-preco="8500">8.500,00 KZ</div>
-    <button onclick="adicionarItem('p025','Instanbul Cheeseburger',8500,'sug025')">Adicionar</button>
-    <div class="sugestao" id="sug025"></div>
-  </div>
-
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/izmir-burger.jpg" alt="Izmir Burger">
-    <h3>Izmir Burger</h3>
-    <div class="price" data-preco="8500">8.500,00 KZ</div>
-    <button onclick="adicionarItem('p026','Izmir Burger',8500,'sug026')">Adicionar</button>
-    <div class="sugestao" id="sug026"></div>
-  </div>
-
-  <!-- Kafta -->
-  <div class="product" data-categoria="kafta">
-    <img src="imagens/Kafta-grelhado.jpg" alt="kafta Grelhado">
-    <h3>Kafta Grelhado</h3>
-    <div class="price" data-preco="13500">13.500,00 KZ</div>
-    <button onclick="adicionarItem('p027','Kafta Grelhado',13500,'sug027')">Adicionar</button>
-    <div class="sugestao" id="sug027"></div>
-  </div>	
-
-  <div class="product" data-categoria="kafta">
-    <img src="imagens/kafta.jpg" alt="Kafta">
-    <h3>Kafta</h3>
-    <div class="price" data-preco="14500">14.500,00 KZ</div>
-    <button onclick="adicionarItem('p028','Kafta',14500,'sug028')">Adicionar</button>
-    <div class="sugestao" id="sug028"></div>
-  </div>
-
-  <!-- Meze -->
-    <div class="product" data-categoria="meze">
-    <img src="imagens/meze-humus.jpg" alt="Meze Humus">
-    <h3>Meze Humus</h3>
-    <div class="price" data-preco="5000">5.000,00 KZ</div>
-    <button onclick="adicionarItem('p030','Meze Humus',5000,'sug030')">Adicionar</button>
-    <div class="sugestao" id="sug030"></div>
-  </div>
-
-  <div class="product" data-categoria="meze">
-  <img src="imagens/meze-russo.jpg" alt="Meze Russo">
-  <h3>Meze Russo</h3>
-  <div class="price" data-preco="5000">5.000,00 KZ</div>
-  <button onclick="adicionarItem('p047','Meze Russo',5000,'sug047')">Adicionar</button>
-  <div class="sugestao" id="sug047"></div>
-</div>
-		
- <div class="product" data-categoria="meze">
-    <img src="imagens/meze-urfa.jpg" alt="Meze de Urfa">
-    <h3>Meze de Urfa</h3>
-    <div class="price" data-preco="4000">4.000,00 KZ</div>
-    <button onclick="adicionarItem('p031','Meze Urfa',4000,'sug031')">Adicionar</button>
-    <div class="sugestao" id="sug031"></div>
-  </div>
-
-  <!-- Hamburgueres -->
-  <div class="product" data-categoria="hamburguer">
-    <img src="imagens/ovo-cheeseburger.jpg" alt="Ovo Cheeseburger">
-    <h3>Ovo Cheeseburger</h3>
-    <div class="price" data-preco="9000">9.000,00 KZ</div>
-    <button onclick="adicionarItem('p032','Ovo Cheeseburger',9000,'sug032')">Adicionar</button>
-    <div class="sugestao" id="sug032"></div>
-  </div>
-
-  <!-- Bebidas -->
-  <div class="product" data-categoria="frias">
-    <img src="imagens/pepsi330ml.jpg" alt="Pepsi 330ml">
-    <h3>Pepsi 330ml</h3>
-    <div class="price" data-preco="800">800,00 KZ</div>
-    <button onclick="adicionarItem('p033','Pepsi 330ml',800,'sug033')">Adicionar</button>
-    <div class="sugestao" id="sug033"></div>
-  </div>
-
-  <!-- Pizzas -->
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-4-estacões.jpg" alt="Pizza 4 Estacões">
-    <h3>Pizza 4 Estacões</h3>
-    <div class="price" data-preco="13000">13.000,00 KZ</div>
-    <button onclick="adicionarItem('p034','Pizza 4 Estacões',13000,'sug034')">Adicionar</button>
-    <div class="sugestao" id="sug034"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-almondegas-frango.jpg" alt="Pizza Almondegas Frango">
-    <h3>Pizza Almondegas Frango</h3>
-    <div class="price" data-preco="11500">11.500,00 KZ</div>
-    <button onclick="adicionarItem('p035','Pizza Almondegas Frango',11500,'sug035')">Adicionar</button>
-    <div class="sugestao" id="sug035"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-almondegas.jpg" alt="Pizza Almondegas">
-    <h3>Pizza Almondegas</h3>
-    <div class="price" data-preco="11500">11.500,00 KZ</div>
-    <button onclick="adicionarItem('p036','Pizza Almondegas',11500,'sug036')">Adicionar</button>
-    <div class="sugestao" id="sug036"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-carne.jpg" alt="Pizza Carne">
-    <h3>Pizza Carne</h3>
-    <div class="price" data-preco="12000">12.000,00 KZ</div>
-    <button onclick="adicionarItem('p037','Pizza Carne',12000,'sug037')">Adicionar</button>
-    <div class="sugestao" id="sug037"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-frango-barbecue.jpg" alt="Pizza Frango Barbecue">
-    <h3>Pizza Frango Barbecue</h3>
-    <div class="price" data-preco="10500">10.500,00 KZ</div>
-    <button onclick="adicionarItem('p038','Pizza Frango Barbecue',10500,'sug038')">Adicionar</button>
-    <div class="sugestao" id="sug038"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-frango.jpg" alt="Pizza Frango">
-    <h3>Pizza De Frango</h3>
-    <div class="price" data-preco="11000">11.000,00 KZ</div>
-    <button onclick="adicionarItem('p039','Pizza Frango',11000,'sug039')">Adicionar</button>
-    <div class="sugestao" id="sug039"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-margarita.jpg" alt="Pizza Margarita">
-    <h3>Pizza Margarita</h3>
-    <div class="price" data-preco="10000">10.000,00 KZ</div>
-    <button onclick="adicionarItem('p040','Pizza Margarita',10000,'sug040')">Adicionar</button>
-    <div class="sugestao" id="sug040"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-mixta.jpg" alt="Pizza Mixta">
-    <h3>Pizza Mixta</h3>
-    <div class="price" data-preco="12500">12.500,00 KZ</div>
-    <button onclick="adicionarItem('p041','Pizza Mixta',12500,'sug041')">Adicionar</button>
-    <div class="sugestao" id="sug041"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-presunto-ovo.jpg" alt="Pizza Presunto Ovo">
-    <h3>Pizza Presunto Ovo</h3>
-    <div class="price" data-preco="12500">12.500,00 KZ</div>
-    <button onclick="adicionarItem('p042','Pizza Presunto Ovo',12500,'sug042')">Adicionar</button>
-    <div class="sugestao" id="sug042"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-salame.jpg" alt="Pizza Salame">
-    <h3>Pizza Salame</h3>
-    <div class="price" data-preco="11500">11.500,00 KZ</div>
-    <button onclick="adicionarItem('p043','Pizza Salame',11500,'sug043')">Adicionar</button>
-    <div class="sugestao" id="sug043"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-salsicha.jpg" alt="Pizza Salsicha">
-    <h3>Pizza Salsicha</h3>
-    <div class="price" data-preco="10500">10.500,00 KZ</div>
-    <button onclick="adicionarItem('p044','Pizza Salsicha',10500,'sug044')">Adicionar</button>
-    <div class="sugestao" id="sug044"></div>
-  </div>
-
-  <div class="product" data-categoria="pizza">
-    <img src="imagens/pizza-vegetariano.jpg" alt="Pizza Vegetariano">
-    <h3>Pizza Vegetariano</h3>
-    <div class="price" data-preco="11000">11.000,00 KZ</div>
-    <button onclick="adicionarItem('p045','Pizza Vegetariano',11000,'sug045')">Adicionar</button>
-    <div class="sugestao" id="sug045"></div>
-  </div>
-  
-  <!-- Categoria Frias -->
-<div class="product" data-categoria="frias">
-<img src="imagens/agua-500ml.jpg" alt="Agua 500ml">
-  <h3>Agua 500ml</h3>
-  <div class="price" data-preco="1000">1.000,00 KZ</div>
-  <button onclick="adicionarItem('p200','Agua 500ml',1000,'sug200')">Adicionar</button>
-  <div class="sugestao" id="sug200"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/agua-1500ml.jpg" alt="Agua 500ml">
-  <h3>Agua 1500ml</h3>
-  <div class="price" data-preco="2500">2.500,00 KZ</div>
-  <button onclick="adicionarItem('p201','Agua 1500ml',2500,'sug201')">Adicionar</button>
-  <div class="sugestao" id="sug201"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/coca-330ml.jpg" alt="Agua 500ml">
-  <h3>Coca Cola 330ml</h3>
-  <div class="price" data-preco="1000">1.000,00 KZ</div>
-  <button onclick="adicionarItem('p202','Coca Cola 330ml',1000,'sug202')">Adicionar</button>
-  <div class="sugestao" id="sug202"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/Coca-Cola-1500ml.jpg" alt="Agua 500ml">
-  <h3>Coca Cola 1500ml</h3>
-  <div class="price" data-preco="2000">2.000,00 KZ</div>
-  <button onclick="adicionarItem('p203','Coca Cola 1500ml',2000,'sug203')">Adicionar</button>
-  <div class="sugestao" id="sug203"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/pepsi-330ml.jpg" alt="Pepsi 330ml">
-  <h3>Pepsi 330ml</h3>
-  <div class="price" data-preco="1000">1.000,00 KZ</div>
-  <button onclick="adicionarItem('p204','Pepsi 330ml',1000,'sug204')">Adicionar</button>
-  <div class="sugestao" id="sug204"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/fanta-330ml.jpg" alt="Fanta 330ml">
-  <h3>Fanta 330ml</h3>
-  <div class="price" data-preco="1000">1.000,00 KZ</div>
-  <button onclick="adicionarItem('p205','Fanta 330ml',1000,'sug205')">Adicionar</button>
-  <div class="sugestao" id="sug205"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/fanta-1500ml.jpg" alt="Fanta 1500ml">
-  <h3>Fanta 1500ml</h3>
-  <div class="price" data-preco="2000">2.000,00 KZ</div>
-  <button onclick="adicionarItem('p206','Fanta 1500ml',2000,'sug206')">Adicionar</button>
-  <div class="sugestao" id="sug206"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/sprite-330ml.jpg" alt="Sprite 330ml">
-  <h3>Sprite 330ml</h3>
-  <div class="price" data-preco="1000">1.000,00 KZ</div>
-  <button onclick="adicionarItem('p207','Sprite 330ml',1000,'sug207')">Adicionar</button>
-  <div class="sugestao" id="sug207"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/sprite-1500ml.jpg" alt="Sprite 1500ml">
-  <h3>Sprite 1500ml</h3>
-  <div class="price" data-preco="2000">2.000,00 KZ</div>
-  <button onclick="adicionarItem('p208','Sprite 1500ml',2000,'sug208')">Adicionar</button>
-  <div class="sugestao" id="sug208"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/Redbull-200ml.jpg" alt="Redbull 200ml">
-  <h3>Redbull 200ml</h3>
-  <div class="price" data-preco="3500">3.500,00 KZ</div>
-  <button onclick="adicionarItem('p209','Redbull 200ml',3500,'sug209')">Adicionar</button>
-  <div class="sugestao" id="sug209"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/agua-tonica-330ml.jpg" alt="Agua Tonica 330ml">
-  <h3>Agua Tonica 330ml</h3>
-  <div class="price" data-preco="2500">2.500,00 KZ</div>
-  <button onclick="adicionarItem('p210','Agua Tonica 330ml',2500,'sug210')">Adicionar</button>
-  <div class="sugestao" id="sug210"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/sumol-De-ananas-330ml.jpg" alt="Sumol De Ananas 330ml">
-  <h3>Sumol De Ananas 330ml</h3>
-  <div class="price" data-preco="1000">1.000,00 KZ</div>
-  <button onclick="adicionarItem('p211','Sumol De Ananas 330ml',1000,'sug211')">Adicionar</button>
-  <div class="sugestao" id="sug211"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/sumol-laranja-330ml.jpg" alt="Sumol de Laranja">
-  <h3>Sumol de Laranja</h3>
-  <div class="price" data-preco="2000">2.000,00 KZ</div>
-  <button onclick="adicionarItem('p212','Sumol de Laranja',2000,'sug212')">Adicionar</button>
-  <div class="sugestao" id="sug212"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/limonada-pq.jpg" alt="Limonada Pequena">
-  <h3>Limonada Pequena</h3>
-  <div class="price" data-preco="1000">1.000,00 KZ</div>
-  <button onclick="adicionarItem('p213','Limonada Pequena',1000,'sug213')">Adicionar</button>
-  <div class="sugestao" id="sug213"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/limonada-gr.jpg" alt="Limonada Grande">
-  <h3>Limonada Grande</h3>
-  <div class="price" data-preco="2500">2.500,00 KZ</div>
-  <button onclick="adicionarItem('p214','Limonada Grande',2500,'sug214')">Adicionar</button>
-  <div class="sugestao" id="sug214"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/milkshake-banana.jpg" alt="ilkshake Banana">
-  <h3>Milkshake Banana</h3>
-  <div class="price" data-preco="7000">7.000,00 KZ</div>
-  <button onclick="adicionarItem('p215','Milkshake Banana',7000,'sug215')">Adicionar</button>
-  <div class="sugestao" id="sug215"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/milkshake-choco.jpg" alt="Milkshake Chocolate">
-  <h3>Milkshake Chocolate</h3>
-  <div class="price" data-preco="7500">7.500,00 KZ</div>
-  <button onclick="adicionarItem('p216','Milkshake Chocolate',7500,'sug216')">Adicionar</button>
-  <div class="sugestao" id="sug216"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/milkshake-mist.jpg" alt="Milkshake Misto">
-  <h3>Milkshake Misto</h3>
-  <div class="price" data-preco="8000">8.000,00 KZ</div>
-  <button onclick="adicionarItem('p217','Milkshake Misto',8000,'sug217')">Adicionar</button>
-  <div class="sugestao" id="sug217"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/Batido-Abacate.jpg" alt="Batido de Abacate">
-  <h3>Batido de Abacate</h3>
-  <div class="price" data-preco="6000">6.000,00 KZ</div>
-  <button onclick="adicionarItem('p218','Batido de Abacate',6000,'sug218')">Adicionar</button>
-  <div class="sugestao" id="sug218"></div>
-</div>
-
-<div class="product" data-categoria="frias">
-<img src="imagens/Batido-misto.jpg" alt="Batido Misto">
-  <h3>Batido Misto</h3>
-  <div class="price" data-preco="7000">7.000,00 KZ</div>
-  <button onclick="adicionarItem('p219','Batido Misto',7000,'sug219')">Adicionar</button>
-  <div class="sugestao" id="sug219"></div>
-</div>
-  
-  
-<!-- Categoria Sobremesas -->
-
-<div class="product" data-categoria="sobremesas">
-<img src="imagens/paste-morango.jpg" alt="Pasta">
-  <h3>Pasta</h3>
-  <div class="price" data-preco="4000">4.000,00 KZ</div>
-  <button onclick="adicionarItem('p300','Pasta',4000,'sug300')">Adicionar</button>
-  <div class="sugestao" id="sug300"></div>
-</div>
-
-<div class="product" data-categoria="sobremesas">
-<img src="imagens/cheescake-morango.jpg" alt="Cheesecake De Morango">
-  <h3>Cheesecake De Morango</h3>
-  <div class="price" data-preco="2000">2.000,00 KZ</div>
-  <button onclick="adicionarItem('p301','Cheesecake De Morango',2000,'sug301')">Adicionar</button>
-  <div class="sugestao" id="sug301"></div>
-</div>
-
-<div class="product" data-categoria="sobremesas">
-<img src="imagens/magnolia-morango.jpg" alt="Magnolia">
-  <h3>Magnolia</h3>
-  <div class="price" data-preco="4500">4.500,00 KZ</div>
-  <button onclick="adicionarItem('p302','Magnolia',4500,'sug302')">Adicionar</button>
-  <div class="sugestao" id="sug302"></div>
-</div>
-
-<!-- Categoria Bebidas Quentes -->
-
-<div class="product" data-categoria="bebidas-quentes">
-<img src="imagens/galao-copo.jpg" alt="Galao">
-  <h3>Galao</h3>
-  <div class="price" data-preco="4500">4.500,00 KZ</div>
-  <button onclick="adicionarItem('p400','Galao',4500,'sug400')">Adicionar</button>
-  <div class="sugestao" id="sug400"></div>
-</div>
-
-<div class="product" data-categoria="bebidas-quentes">
-<img src="imagens/cafe-expresso.jpg" alt="Agua 500ml">
-  <h3>Cafe Expresso</h3>
-  <div class="price" data-preco="2000">2.000,00 KZ</div>
-  <button onclick="adicionarItem('p401','Cafe Expresso',2000,'sug401')">Adicionar</button>
-  <div class="sugestao" id="sug401"></div>
-</div>
-
-<div class="product" data-categoria="bebidas-quentes">
-<img src="imagens/cafe-turco.jpg" alt="Cafe Turco">
-  <h3>Cafe Turco</h3>
-  <div class="price" data-preco="3000">3.000,00 KZ</div>
-  <button onclick="adicionarItem('p402','Cafe Turco',3000,'sug402')">Adicionar</button>
-  <div class="sugestao" id="sug402"></div>
-</div>
-
-<div class="product" data-categoria="bebidas-quentes">
-<img src="imagens/cha-normal.jpg" alt="Cha">
-  <h3>Cha</h3>
-  <div class="price" data-preco="3000">3.000,00 KZ</div>
-  <button onclick="adicionarItem('p403','Cha',3000,'sug403')">Adicionar</button>
-  <div class="sugestao" id="sug403"></div>
-</div>
-
-<div class="product" data-categoria="bebidas-quentes">
-<img src="imagens/cha-turco.jpg" alt="Cha Turco">
-  <h3>Cha Turco</h3>
-  <div class="price" data-preco="2000">2.000,00 KZ</div>
-  <button onclick="adicionarItem('p404','Cha Turco',2000,'sug404')">Adicionar</button>
-  <div class="sugestao" id="sug404"></div>
-</div>
-
-<!-- Categoria Sumos -->
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/limonada-turca.jpg" alt="Limonada Turca">
-  <h3>Limonada Turca</h3>
-  <div class="price" data-preco="2500">2.500,00 KZ</div>
-  <button onclick="adicionarItem('p500','Limonada Turca',2500,'sug500')">Adicionar</button>
-  <div class="sugestao" id="sug500"></div>
-</div>
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/sumo-pitaia.jpg" alt="Sumo Natural De Pitaia">
-  <h3>Sumo Natural De Pitaia</h3>
-  <div class="price" data-preco="6000">6.000,00 KZ</div>
-  <button onclick="adicionarItem('p501','Sumo Natural De Pitaia',6000,'sug501')">Adicionar</button>
-  <div class="sugestao" id="sug501"></div>
-</div>
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/sumo-tomate.jpg" alt="Sumo Natural De Tomate">
-  <h3>Sumo Natural De Tomate</h3>
-  <div class="price" data-preco="6000">6.000,00 KZ</div>
-  <button onclick="adicionarItem('p502','Sumo Natural De Tomate',6000,'sug502')">Adicionar</button>
-  <div class="sugestao" id="sug502"></div>
-</div>
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/sumo-maca.jpg" alt="Sumo Natural De Maça">
-  <h3>Sumo Natural De Maça</h3>
-  <div class="price" data-preco="6000">6.000,00 KZ</div>
-  <button onclick="adicionarItem('p503','Sumo Natural De Maça',6000,'sug503')">Adicionar</button>
-  <div class="sugestao" id="sug503"></div>
-</div>
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/sumo-melan.jpg" alt="Sumo Natural de Melancia">
-  <h3>Sumo Natural de Melancia</h3>
-  <div class="price" data-preco="6000">6.000,00 KZ</div>
-  <button onclick="adicionarItem('p504','Sumo Natural de Melancia',6000,'sug504')">Adicionar</button>
-  <div class="sugestao" id="sug504"></div>
-</div>
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/sumo-maracuja.jpg" alt="Sumo Natural De Marauja">
-  <h3>Sumo Natural De Marauja</h3>
-  <div class="price" data-preco="6000">6.000,00 KZ</div>
-  <button onclick="adicionarItem('p505','Sumo Natural De Marauja',6000,'sug505')">Adicionar</button>
-  <div class="sugestao" id="sug505"></div>
-</div>
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/sumo-cenoura.jpg" alt="Sumo Natural De Cenoura">
-  <h3>Sumo Natural De Cenoura</h3>
-  <div class="price" data-preco="6000">6.000,00 KZ</div>
-  <button onclick="adicionarItem('p506','Sumo Natural De Cenoura',6000,'sug506')">Adicionar</button>
-  <div class="sugestao" id="sug506"></div>
-</div>
-
-<div class="product" data-categoria="sumos">
-<img src="imagens/sumo-misto.jpg" alt="Sumo Natural Misto">
-  <h3>Sumo Natural Misto</h3>
-  <div class="price" data-preco="6500">6.500,00 KZ</div>
-  <button onclick="adicionarItem('p507','Sumo Natural Misto',6500,'sug507')">Adicionar</button>
-  <div class="sugestao" id="sug507"></div>
-</div>
-
-<!-- Categoria Matabicho -->
-
-<div class="product" data-categoria="matabicho">
-<img src="imagens/omelete-queijo.jpg" alt="Omelete de Queijo">
-  <h3>Omelete de Queijo</h3>
-  <div class="price" data-preco="7000">7.000,00 KZ</div>
-  <button onclick="adicionarItem('p600','Omelete de Queijo',7000,'sug600')">Adicionar</button>
-  <div class="sugestao" id="sug600"></div>
-</div>
-
-<div class="product" data-categoria="matabicho">
-<img src="imagens/omelete-carne.jpg" alt="Omelete de Carne">
-  <h3>Omelete de Carne</h3>
-  <div class="price" data-preco="8000">8.000,00 KZ</div>
-  <button onclick="adicionarItem('p601','Omelete de Carne',8000,'sug601')">Adicionar</button>
-  <div class="sugestao" id="sug601"></div>
-</div>
-
-<div class="product" data-categoria="matabicho">
-<img src="imagens/omelete-frango.jpg" alt="Omelete de Frango">
-  <h3>Omelete de Frango</h3>
-  <div class="price" data-preco="7500">7.500,00 KZ</div>
-  <button onclick="adicionarItem('p602','Omelete de Frango',7500,'sug602')">Adicionar</button>
-  <div class="sugestao" id="sug602"></div>
-</div>
-
-<div class="product" data-categoria="matabicho">
-<img src="imagens/omelete-misto.jpg" alt="Omelete Misto">
-  <h3>Omelete Misto</h3>
-  <div class="price" data-preco="9000">9.000,00 KZ</div>
-  <button onclick="adicionarItem('p603','Omelete Misto',9000,'sug603')">Adicionar</button>
-  <div class="sugestao" id="sug603"></div>
-</div>
-
-<!-- Doses -->
-
-<div class="product" data-categoria="doses">
-<img src="imagens/batatas-fritas.jpg" alt="Batata Fritas">
-  <h3>Batata Fritas</h3>
-  <div class="price" data-preco="4000">4.000,00 KZ</div>
-  <button onclick="adicionarItem('p604','Batata Fritas',4000,'sug604')">Adicionar</button>
-  <div class="sugestao" id="sug604"></div>
-</div>
-
-<!-- Sopas -->
-
-<div class="product" data-categoria="sopas">
-<img src="imagens/sopa-tomate.jpg" alt="Sopa de Tomate">
-  <h3>Sopa de Tomate</h3>
-  <div class="price" data-preco="5000">5.000,00 KZ</div>
-  <button onclick="adicionarItem('p605','Sopa de Tomate',5000,'sug605')">Adicionar</button>
-  <div class="sugestao" id="sug605"></div>
-</div>
-
-<div class="product" data-categoria="sopas">
-<img src="imagens/sopa-turca-lentilha.jpg" alt="Sopa Turca de Lentilha">
-  <h3>Sopa Turca de Lentilha</h3>
-  <div class="price" data-preco="5000">5.000,00 KZ</div>
-  <button onclick="adicionarItem('p606','Sopa Turca de Lentilha',5000,'sug606')">Adicionar</button>
-  <div class="sugestao" id="sug606"></div>
-</div>
-
-<div class="product" data-categoria="matabicho">
-<img src="imagens/torrada-queijo.jpg" alt="Torrada de Queijo">
-  <h3>Torrada de Queijo</h3>
-  <div class="price" data-preco="6500">6.500,00 KZ</div>
-  <button onclick="adicionarItem('p607','Torrada de Queijo',6500,'sug607')">Adicionar</button>
-  <div class="sugestao" id="sug607"></div>
-</div>
-
-<div class="product" data-categoria="matabicho">
-<img src="imagens/torrada-mista.jpg" alt="Torrada Mista">
-  <h3>Torrada Mista</h3>
-  <div class="price" data-preco="8000">8.000,00 KZ</div>
-  <button onclick="adicionarItem('p608','Torrada Mista',8000,'sug608')">Adicionar</button>
-  <div class="sugestao" id="sug608"></div>
-</div>
-  </main>
-  
-  <button class="btn-carrinho-flutuante" onclick="abrirCarrinho()">🛒 Ver Carrinho</button>
- <!-- FOOTER -->
-  <footer>
-    <div class="footer-content">
-      © 2026 Chef Burger AO – Todos os direitos reservados
-    </div>
-  </footer>
-
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menuMobile");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
-  </script>
-</body>
-</html>
+  });
+
+  const produtos = document.querySelectorAll(".product");
+  produtos.forEach(produto => {
+    const categoria = produto.getAttribute("data-categoria").toLowerCase();
+    produto.style.display = (filtroSelecionado === "todos" || categoria === filtroSelecionado) ? "flex" : "none";
+  });
+
+  // Fecha menu mobile após selecionar
+  const menu = document.getElementById("menuMobile");
+  if (menu) menu.style.display = "none";
+}
+
+// Resetar filtro
+function resetarFiltro() {
+  const filtros = document.querySelectorAll("#filtro-categoria, #filtro-categoria-desktop");
+  filtros.forEach(select => select.value = "todos");
+  filtrarCategoria();
+
+  // Fecha menu mobile
+  const menu = document.getElementById("menuMobile");
+  if (menu) menu.style.display = "none";
+}
+
+// Fecha menu ao clicar em qualquer link
+function fecharMenu() {
+  const menu = document.getElementById("menuMobile");
+  if (menu) menu.style.display = "none";
+}
+
+// Carrinho em memória
+let carrinho = JSON.parse(localStorage.getItem("carrinhoChefBurger")) || [];
+
+// Sugestões IA
+const sugestoesChef = {
+  "Abacate Cheeseburger": "🥑 Combine com molho de alho suave.",
+  "Abacaxi Burger": "🍍 Experimente com batata frita crocante.",
+  "Ankara Burger": "🇹🇷 Sirva com molho picante turco.",
+  "Atum Burger": "🐟 Acompanhe com salada fresca.",
+  "Big Burger": "🍔 Ideal com refrigerante gelado.",
+  "Carne Grelhada": "🥩 Combine com legumes salteados.",
+  "Chef Burger": "🍔 O Chef Huseyin indica molho barbecue especial.",
+  "Cogumelo Cheeseburger": "🍄 Sirva com queijo extra derretido.",
+  "Torrada Mista": "🥪 Acompanhe com café ou chá.",
+  "Kafta": "🥙 Sirva com molho de iogurte e hortelã fresca."
+};
+
+// Adicionar item ao carrinho com sugestão e feedback visual
+function adicionarItem(id, nome, preco, sugestaoId) {
+  carrinho.push({ id, nome, preco });
+  atualizarTotal();
+
+  // Guardar no LocalStorage
+  localStorage.setItem("carrinhoChefBurger", JSON.stringify(carrinho));
+
+  const sugestao = document.getElementById(sugestaoId);
+  const botao = event.target;
+
+  if (sugestao) {
+    sugestao.style.display = "block";
+    sugestao.innerText = sugestoesChef[nome] ||
+      `🍴 O Chef Huseyin recomenda um acompanhamento premium para ${nome}.`;
+  }
+
+  botao.innerText = "✅ Adicionado ao carrinho";
+  botao.classList.add("clicked");
+
+  setTimeout(() => {
+    botao.innerText = "Adicionar";
+    botao.classList.remove("clicked");
+    if (sugestao) sugestao.style.display = "none";
+  }, 3000);
+}
+
+// Atualizar total do carrinho
+function atualizarTotal() {
+  let total = carrinho.reduce((acc, item) => acc + item.preco, 0);
+  const totalElement = document.getElementById("totalCarrinho");
+  if (totalElement) {
+    totalElement.innerText = `Total: ${formatarPreco(total)} KZ`;
+  }
+}
+
+// Função utilitária para formatar preço em KZ
+function formatarPreco(valor) {
+  return valor.toLocaleString("pt-AO", { minimumFractionDigits: 2 });
+}
+
+// Remover item do carrinho
+function removerItem(id) {
+  carrinho = carrinho.filter(item => item.id !== id);
+  atualizarTotal();
+  localStorage.setItem("carrinhoChefBurger", JSON.stringify(carrinho));
+}
+
+// Abrir carrinho (botão flutuante mobile)
+function abrirCarrinho() {
+  window.location.href = "encomendas.html";
+}
