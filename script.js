@@ -6,7 +6,7 @@ function toggleMenu() {
 
 // Filtrar produtos por categoria (mobile + desktop)
 function filtrarCategoria() {
-  const filtros = document.querySelectorAll("#filtro-categoria");
+  const filtros = document.querySelectorAll("#filtro-categoria, #filtro-categoria-desktop");
   let filtroSelecionado = "todos";
 
   filtros.forEach(select => {
@@ -20,13 +20,27 @@ function filtrarCategoria() {
     const categoria = produto.getAttribute("data-categoria").toLowerCase();
     produto.style.display = (filtroSelecionado === "todos" || categoria === filtroSelecionado) ? "flex" : "none";
   });
+
+  // Fecha menu mobile após selecionar
+  const menu = document.getElementById("menuMobile");
+  if (menu) menu.style.display = "none";
 }
 
 // Resetar filtro
 function resetarFiltro() {
-  const filtros = document.querySelectorAll("#filtro-categoria");
+  const filtros = document.querySelectorAll("#filtro-categoria, #filtro-categoria-desktop");
   filtros.forEach(select => select.value = "todos");
   filtrarCategoria();
+
+  // Fecha menu mobile
+  const menu = document.getElementById("menuMobile");
+  if (menu) menu.style.display = "none";
+}
+
+// Fecha menu ao clicar em qualquer link
+function fecharMenu() {
+  const menu = document.getElementById("menuMobile");
+  if (menu) menu.style.display = "none";
 }
 
 // Carrinho em memória
@@ -59,7 +73,7 @@ function adicionarItem(id, nome, preco, sugestaoId) {
 
   if (sugestao) {
     sugestao.style.display = "block";
-    sugestao.innerText = sugestoesChef[nome] || 
+    sugestao.innerText = sugestoesChef[nome] ||
       `🍴 O Chef Huseyin recomenda um acompanhamento premium para ${nome}.`;
   }
 
