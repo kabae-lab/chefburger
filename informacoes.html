@@ -33,15 +33,16 @@
     /* BOTÃO MENU MOBILE */
     .btn-menu-mobile {
       display: none;
-      position: fixed;
-      top: 90px;
-      left: 10px;
+      position: absolute;
+      bottom: 5px;
+      right: 2cm;
       background: #007BFF;
       color: #fff;
-      border: none;
+      font-weight: bold;
       padding: 0.5rem 1rem;
-      border-radius: 6px;
-      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      text-align: center;
       z-index: 1001;
     }
 
@@ -49,24 +50,36 @@
     .menu-mobile {
       display: none;
       flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.6rem;
       background: #fff;
       border: 1px solid #ddd;
       position: fixed;
-      top: 130px;
-      left: 10px;
-      z-index: 1000;
+      top: 80px; /* colado ao header */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95%;
+      z-index: 2000;
     }
     .menu-mobile .btn-nav {
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      text-align: center;
       background: #007BFF;
       color: #fff;
-      padding: 0.6rem;
-      margin: 0.2rem;
-      border-radius: 6px;
-      text-align: center;
       font-weight: bold;
     }
+    .menu-mobile .btn-nav.whatsapp { background: #25D366; }
 
-    /* BARRA DE NAVEGAÇÃO DESKTOP */
+    /* VISIBILIDADE MOBILE */
+    @media screen and (max-width: 992px) {
+      .barra-navegacao { display: none !important; }
+      .btn-menu-mobile { display: block !important; }
+    }
+
+    /* NAV DESKTOP */
     .barra-navegacao {
       position: fixed;
       top: 80px;
@@ -91,9 +104,7 @@
       background: #007BFF;
       color: #fff;
     }
-    .btn-nav.whatsapp {
-      background: #25D366;
-    }
+    .btn-nav.whatsapp { background: #25D366; }
 
     /* MAIN CONTENT */
     main.content {
@@ -117,7 +128,6 @@
       object-fit: contain;
     }
 
-    /* Versão mobile: imagem em full destaque */
     @media (max-width: 768px) {
       .chef-img {
         max-width: 100%;
@@ -141,7 +151,6 @@
       gap: 6px;
       margin-bottom: 0.6rem;
     }
-    .footer-line img { height: 30px; }
     .footer-line strong {
       font-size: 1rem;
       color: #25D366;
@@ -159,23 +168,23 @@
 
     /* BOTÃO WHATSAPP FLUTUANTE */
     .whatsapp-float {
-  position: fixed;
-  bottom: 2cm;   /* movido 2cm acima */
-  right: 20px;
-  background: #25D366;
-  color: #fff;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 28px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  z-index: 1100;
-  text-decoration: none;
-}
+      position: fixed;
+      bottom: 2cm;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 1100;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -187,23 +196,21 @@
         <img src="imagens/logo-chefburger.jpg" alt="Chef Burger AO" />
       </a>
     </div>
+    <button class="btn-menu-mobile" onclick="toggleMenu()">Explorar</button>
   </header>
-
-  <!-- BOTÃO MENU MOBILE -->
-  <button class="btn-menu-mobile" onclick="toggleMenu()">Opções</button>
 
   <!-- MENU MOBILE -->
   <nav class="menu-mobile" id="menuMobile">
-    <a href="index.html" class="btn-nav">Menu</a>
-    <a href="encomendas.html" class="btn-nav">Encomendas</a>
-    <a href="informacoes.html" class="btn-nav">Informações</a>
+    <a href="index.html" class="btn-nav" onclick="fecharMenu()">Menu</a>
+    <a href="encomendas.html" class="btn-nav" onclick="fecharMenu()">Encomendas</a>
+    <a href="https://wa.me/244925918468" class="btn-nav whatsapp" onclick="fecharMenu()">Posso Ajudar?</a>
   </nav>
 
-  <!-- BARRA DE NAVEGAÇÃO DESKTOP -->
+  <!-- NAV DESKTOP -->
   <nav class="barra-navegacao">
     <a href="index.html" class="btn-nav">Menu</a>
     <a href="encomendas.html" class="btn-nav">Encomendas</a>
-    <a href="informacoes.html" class="btn-nav">Informações</a>
+    <a href="https://wa.me/244925918468" class="btn-nav whatsapp">Posso Ajudar?</a>
   </nav>
 
   <!-- MAIN CONTENT -->
@@ -217,10 +224,8 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-line">
-      
       <strong>📍 Turkish Food – Luanda, Kilamba Quarteirão W 17</strong>
       <p>📞 +244 925918462 | +244 925918468 | +244 930877600</p>
-	  
     </div>
     <p class="slogan">“O verdadeiro sabor turco em Angola”</p>
   </footer>
@@ -234,6 +239,17 @@
       const menu = document.getElementById("menuMobile");
       menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
+    function fecharMenu() {
+      const menu = document.getElementById("menuMobile");
+      menu.style.display = "none";
+    }
+    document.addEventListener("click", function(event) {
+      const menu = document.getElementById("menuMobile");
+      const botao = document.querySelector(".btn-menu-mobile");
+      if (menu.style.display === "flex" && !menu.contains(event.target) && !botao.contains(event.target)) {
+        fecharMenu();
+      }
+    });
   </script>
 </body>
 </html>
