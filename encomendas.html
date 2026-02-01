@@ -161,15 +161,20 @@
     }
     table#tabelaCarrinho th:last-child,
     table#tabelaCarrinho td:last-child {
-      width: 40px;
+      width: 30px; /* reduzido */
       text-align: center;
-      padding: 0.4rem;
+      padding: 0.2rem;
     }
     .quantidade-controle {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      justify-content: flex-start;
+      justify-content: center;
+      gap: 0.3rem;
+    }
+    .quantidade-numero {
+      font-weight: bold;
+      min-width: 20px;
+      text-align: center;
     }
     .btn-quantidade {
       background: #007bff;
@@ -190,12 +195,6 @@
       cursor: pointer;
       line-height: 1;
       margin: 0;
-    }
-    @media screen and (max-width: 480px) {
-      .quantidade-controle {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
     .carrinho-footer {
       border-top: 1px solid #ddd;
@@ -271,10 +270,11 @@
           </tr>
         </thead>
         <tbody id="listaCarrinho"></tbody>
+              </tbody>
       </table>
     </div>
     <div class="carrinho-footer">
-           <div id="totalCarrinho">Total: 0,00 KZ</div>
+      <div id="totalCarrinho">Total: 0,00 KZ</div>
       <button class="btn-finalizar" onclick="finalizarEncomenda()">✅ Finalizar Encomenda</button>
     </div>
   </div>
@@ -296,7 +296,7 @@
       menu.style.display = "none";
     }
 
-    // Fecha o menu se clicar fora dele (ex.: no main ou body)
+    // Fecha o menu se clicar fora dele (main/body)
     document.addEventListener("click", function(event) {
       const menu = document.getElementById("menuMobile");
       const botao = document.querySelector(".btn-menu-mobile");
@@ -320,7 +320,7 @@
           <td>
             <div class="quantidade-controle">
               <button class="btn-quantidade" onclick="alterarQuantidade(${index}, -1)">➖</button>
-              <span>${item.quantidade}</span>
+              <span class="quantidade-numero">${item.quantidade}</span>
               <button class="btn-quantidade" onclick="alterarQuantidade(${index}, 1)">➕</button>
             </div>
           </td>
