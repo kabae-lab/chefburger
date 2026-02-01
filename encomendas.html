@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-AO">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chef Burger – Encomendas</title>
+  <title>Chef Burger AO – Encomendas</title>
   <link rel="stylesheet" href="style.css">
   <style>
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden; /* impede scroll global */
       background: #f4f4f4;
+      overflow: hidden; /* impede scroll global */
     }
 
+    /* HEADER */
     header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
       background: #000;
-      height: 60px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      border-bottom: 1px solid #222;
-      position: relative;
+      align-items: center;
+      z-index: 1000;
     }
+    .logo img { height: 65px; }
 
-    header .logo img {
-      height: 60px;
-    }
-
-    /* BOTÃO MENU MOBILE */
+    /* BOTÃO MENU MOBILE DENTRO DO HEADER */
     .btn-menu-mobile {
       display: none;
       position: absolute;
-      bottom: 10px;
-      right: 20px;
+      bottom: 5px;
+      right: 2cm;
       background: var(--blue);
       color: #fff;
       font-weight: bold;
@@ -52,6 +52,19 @@
       padding: 0.6rem;
       background: var(--bg);
       border-bottom: 1px solid #eee;
+      position: fixed;
+      top: 130px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95%;
+      z-index: 2000;
+    }
+    .menu-mobile .btn-nav {
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
@@ -62,26 +75,43 @@
 
     /* NAV DESKTOP */
     .barra-navegacao {
+      position: fixed;
+      top: 80px;
+      width: 100%;
+      background: #f4f4f4;
+      border-bottom: 1px solid #eee;
+      padding: 0.8rem;
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      padding: 0.0rem;
-      background: var(--bg);
-      border-bottom: 0px solid #eee;
+      gap: 0.5rem;
+      z-index: 999;
     }
+    .btn-nav {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      min-width: 120px;
+      text-align: center;
+      font-size: 0.9rem;
+      background: #007BFF;
+      color: #fff;
+    }
+    .btn-nav.whatsapp { background: #25D366; }
 
     /* CARRINHO */
     .carrinho-container {
-  margin: 20px auto;
-  max-width: 900px;
-  height: calc(100vh - 140px); /* 80px header + ~60px footer */
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fff;
-  padding: 1rem;
-}
+      margin: 160px auto 20px auto;
+      max-width: 900px;
+      height: calc(100vh - 200px);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fff;
+      padding: 1rem;
+    }
 
     .carrinho-container h2 {
       text-align: center;
@@ -89,28 +119,25 @@
     }
 
     .carrinho-scroll {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-}
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
 
     table#tabelaCarrinho {
       width: 100%;
       border-collapse: collapse;
     }
-
     table#tabelaCarrinho th, table#tabelaCarrinho td {
       padding: 0.6rem;
       border-bottom: 1px solid #eee;
     }
-
     table#tabelaCarrinho th {
       background: #007bff;
       color: #fff;
       font-weight: bold;
       text-align: center;
     }
-
     table#tabelaCarrinho td {
       text-align: left;
       vertical-align: middle;
@@ -122,7 +149,6 @@
       gap: 0.4rem;
       justify-content: flex-start;
     }
-
     .btn-quantidade {
       background: #007bff;
       color: #fff;
@@ -132,7 +158,6 @@
       cursor: pointer;
       font-weight: bold;
     }
-
     .btn-remover {
       background: #ff4444;
       color: #fff;
@@ -147,18 +172,16 @@
       padding-top: 0.8rem;
       text-align: right;
     }
-
     #totalCarrinho {
       font-weight: bold;
       font-size: 1.2rem;
       margin-bottom: 0.8rem;
     }
-
     .btn-finalizar {
       background: #25D366;
       color: #fff;
       border: none;
-      padding: 0.4rem 1rem;
+      padding: 0.6rem 1rem;
       border-radius: 8px;
       font-size: 0.9rem;
       font-weight: bold;
@@ -167,32 +190,34 @@
       width: 100%;
     }
 
+    /* FOOTER */
     footer {
-  height: 20px;
-  text-align: center;
-  color: #666;
-  font-size: 0.rem;
-  padding: 0.045rem;
-}
+      height: 15px;
+      text-align: center;
+      color: #666;
+      font-size: 0.8rem;
+      padding: 0.5rem;
+    }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <!-- HEADER -->
-<header>
-  <div class="logo">
-    <a href="index.html">
-      <img src="imagens/logo-chefburger.jpg" alt="Chef Burger AO" />
-    </a>
-  </div>
-</header>
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="imagens/logo-chefburger.jpg" alt="Chef Burger AO" />
+      </a>
+    </div>
+    <button class="btn-menu-mobile" onclick="toggleMenu()">Explorar</button>
+  </header>
 
-  <!-- NAV MOBILE -->
+  <!-- MENU MOBILE -->
   <nav class="menu-mobile" id="menuMobile">
+    <a href="index.html" class="btn-nav">Menu</a>
     <a href="encomendas.html" class="btn-nav">Encomendas</a>
     <a href="informacoes.html" class="btn-nav">Informações</a>
-    <a href="https://wa.me/244925918468" class="btn-nav whatsapp">WhatsApp</a>
+    <a href="https://wa.me/244925918468" class="btn-nav whatsapp">Posso Ajudar?</a>
   </nav>
 
   <!-- NAV DESKTOP -->
@@ -203,9 +228,9 @@
     <a href="https://wa.me/244925918468" class="btn-nav whatsapp">Posso Ajudar?</a>
   </nav>
 
-  <!-- MAIN / CARRINHO -->
+  <!-- CARRINHO -->
   <div class="carrinho-container">
-    <h2>Pedido ao Chef</h2>
+    <h2>🛒 Carrinho de Encomendas</h2>
     <div class="carrinho-scroll">
       <table id="tabelaCarrinho">
         <thead>
@@ -239,7 +264,7 @@
 
     let carrinho = JSON.parse(localStorage.getItem("carrinhoChefBurger")) || [];
 
-    function mostrarCarrinho() {
+        function mostrarCarrinho() {
       const lista = document.getElementById("listaCarrinho");
       lista.innerHTML = "";
       carrinho.forEach((item, index) => {
@@ -271,7 +296,7 @@
     function alterarQuantidade(index, delta) {
       carrinho[index].quantidade += delta;
       if (carrinho[index].quantidade < 1) carrinho[index].quantidade = 1;
-           localStorage.setItem("carrinhoChefBurger", JSON.stringify(carrinho));
+      localStorage.setItem("carrinhoChefBurger", JSON.stringify(carrinho));
       mostrarCarrinho();
     }
 
@@ -319,7 +344,7 @@
       window.location.href = "index.html";
     }
 
-    // Inicializar carrinho ao carregar página
+       // Inicializar carrinho ao carregar página
     mostrarCarrinho();
   </script>
 </body>
