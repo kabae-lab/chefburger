@@ -75,9 +75,10 @@
     }
     .menu-mobile .btn-nav.whatsapp { background: #25D366; }
 
-    @media (max-width: 768px) {
-      .btn-menu-mobile { display: block; }
-      .barra-navegacao { display: none; } /* oculta botões desktop no mobile */
+    /* VISIBILIDADE MOBILE */
+    @media screen and (max-width: 768px) {
+      .barra-navegacao { display: none !important; } /* oculta botões desktop */
+      .btn-menu-mobile { display: block !important; } /* mostra botão Explorar */
     }
 
     /* NAV DESKTOP */
@@ -255,14 +256,14 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+    <!-- FOOTER -->
   <footer>
     <div class="footer-content">© 2026 Chef Burger AO – Todos os direitos reservados</div>
   </footer>
 
   <!-- SCRIPT -->
   <script>
-       function toggleMenu() {
+    function toggleMenu() {
       const menu = document.getElementById("menuMobile");
       menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
