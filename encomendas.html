@@ -167,11 +167,11 @@
       font-weight: bold;
     }
     .btn-remover {
-      background: #ff4444;
-      color: #fff;
+      background: transparent;
+      color: #ff4444;
       border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
+      font-size: 1.2rem;
+      font-weight: bold;
       cursor: pointer;
     }
     .carrinho-footer {
@@ -256,7 +256,7 @@
     </div>
   </div>
 
-    <!-- FOOTER -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-content">© 2026 Chef Burger AO – Todos os direitos reservados</div>
   </footer>
@@ -272,7 +272,6 @@
       const menu = document.getElementById("menuMobile");
       menu.style.display = "none";
     }
-
     let carrinho = JSON.parse(localStorage.getItem("carrinhoChefBurger")) || [];
 
     function mostrarCarrinho() {
@@ -292,7 +291,7 @@
               <button class="btn-quantidade" onclick="alterarQuantidade(${index}, 1)">➕</button>
             </div>
           </td>
-          <td><button class="btn-remover" onclick="removerItem(${index})">Remover</button></td>
+          <td><button class="btn-remover" onclick="removerItem(${index})">✖</button></td>
         `;
         lista.appendChild(tr);
       });
