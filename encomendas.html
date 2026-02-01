@@ -76,9 +76,9 @@
     .menu-mobile .btn-nav.whatsapp { background: #25D366; }
 
     /* VISIBILIDADE MOBILE */
-    @media screen and (max-width: 768px) {
-      .barra-navegacao { display: none !important; } /* oculta botões desktop */
-      .btn-menu-mobile { display: block !important; } /* mostra botão Explorar */
+    @media screen and (max-width: 992px) {
+      .barra-navegacao { display: none !important; }
+      .btn-menu-mobile { display: block !important; }
     }
 
     /* NAV DESKTOP */
@@ -151,6 +151,10 @@
       text-align: left;
       vertical-align: middle;
     }
+    table#tabelaCarrinho td:first-child {
+      word-break: break-word;
+      white-space: normal;
+    }
     .quantidade-controle {
       display: flex;
       align-items: center;
@@ -161,18 +165,26 @@
       background: #007bff;
       color: #fff;
       border: none;
-      padding: 0.3rem 0.6rem;
+      padding: 0.2rem 0.5rem;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 0.85rem;
     }
     .btn-remover {
       background: transparent;
       color: #ff4444;
       border: none;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
+      margin-left: 0.4rem;
+    }
+    @media screen and (max-width: 480px) {
+      .quantidade-controle {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
     .carrinho-footer {
       border-top: 1px solid #ddd;
@@ -251,7 +263,7 @@
       </table>
     </div>
     <div class="carrinho-footer">
-      <div id="totalCarrinho">Total: 0,00 KZ</div>
+           <div id="totalCarrinho">Total: 0,00 KZ</div>
       <button class="btn-finalizar" onclick="finalizarEncomenda()">✅ Finalizar Encomenda</button>
     </div>
   </div>
@@ -272,6 +284,7 @@
       const menu = document.getElementById("menuMobile");
       menu.style.display = "none";
     }
+
     let carrinho = JSON.parse(localStorage.getItem("carrinhoChefBurger")) || [];
 
     function mostrarCarrinho() {
