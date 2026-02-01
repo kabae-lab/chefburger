@@ -895,14 +895,25 @@
     </div>
   </footer>
 
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menuMobile");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  <!-- SCRIPT PRINCIPAL -->
+<script src="script.js"></script>
+
+<!-- SCRIPT INLINE PARA O MENU -->
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("menuMobile");
+    menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  }
+
+  // Fecha o menu se clicar fora dele (main/body)
+  document.addEventListener("click", function(event) {
+    const menu = document.getElementById("menuMobile");
+    const botao = document.querySelector(".btn-menu-mobile");
+    if (menu.style.display === "flex" && !menu.contains(event.target) && !botao.contains(event.target)) {
+      menu.style.display = "none";
     }
-  </script>
+  });
+</script>
 </body>
 </html>
 
