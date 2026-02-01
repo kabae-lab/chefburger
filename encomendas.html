@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>-Chef Burger AO – Encomendas-</title>
+  <title>Chef Burger AO – Encomendas</title>
   <link rel="stylesheet" href="style.css">
   <style>
     html, body {
@@ -11,8 +11,12 @@
       margin: 0;
       padding: 0;
       background: #f4f4f4;
-      overflow: hidden; /* impede scroll global */
+      overflow-x: hidden; /* elimina scroll horizontal */
+      overflow-y: hidden; /* impede scroll global vertical */
+      max-width: 100vw;
+      box-sizing: border-box;
     }
+    * { box-sizing: inherit; }
 
     /* HEADER */
     header {
@@ -69,13 +73,11 @@
       color: #fff;
       font-weight: bold;
     }
-    .menu-mobile .btn-nav.whatsapp {
-      background: #25D366;
-    }
+    .menu-mobile .btn-nav.whatsapp { background: #25D366; }
 
     @media (max-width: 768px) {
       .btn-menu-mobile { display: block; }
-      .barra-navegacao { display: none; }
+      .barra-navegacao { display: none; } /* oculta botões desktop no mobile */
     }
 
     /* NAV DESKTOP */
@@ -109,6 +111,7 @@
     .carrinho-container {
       margin: 160px auto 20px auto;
       max-width: 900px;
+      width: 95%;
       height: calc(100vh - 200px);
       display: flex;
       flex-direction: column;
@@ -116,22 +119,22 @@
       border-radius: 10px;
       background: #fff;
       padding: 1rem;
+      overflow: hidden;
     }
-
     .carrinho-container h2 {
       text-align: center;
       margin-bottom: 1rem;
     }
-
     .carrinho-scroll {
       flex: 1;
       overflow-y: auto;
       margin-bottom: 1rem;
     }
-
     table#tabelaCarrinho {
       width: 100%;
       border-collapse: collapse;
+      table-layout: fixed;
+      word-wrap: break-word;
     }
     table#tabelaCarrinho th, table#tabelaCarrinho td {
       padding: 0.6rem;
@@ -147,7 +150,6 @@
       text-align: left;
       vertical-align: middle;
     }
-
     .quantidade-controle {
       display: flex;
       align-items: center;
@@ -171,7 +173,6 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
     .carrinho-footer {
       border-top: 1px solid #ddd;
       padding-top: 0.8rem;
@@ -197,7 +198,7 @@
 
     /* FOOTER */
     footer {
-      height: 15px;
+      height: 40px;
       text-align: center;
       color: #666;
       font-size: 0.8rem;
@@ -261,7 +262,7 @@
 
   <!-- SCRIPT -->
   <script>
-    function toggleMenu() {
+       function toggleMenu() {
       const menu = document.getElementById("menuMobile");
       menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
@@ -273,7 +274,7 @@
 
     let carrinho = JSON.parse(localStorage.getItem("carrinhoChefBurger")) || [];
 
-        function mostrarCarrinho() {
+    function mostrarCarrinho() {
       const lista = document.getElementById("listaCarrinho");
       lista.innerHTML = "";
       carrinho.forEach((item, index) => {
