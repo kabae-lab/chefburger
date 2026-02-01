@@ -24,19 +24,20 @@
 
     /* MENU RECOLHÍVEL MOBILE */
     .menu-mobile {
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.6rem;
-      background: var(--bg);
-      border-bottom: 1px solid #eee;
-      position: fixed;
-      top: 130px;             /* aparece logo abaixo do header */
-      left: 50%;
-      transform: translateX(-50%);
-      width: 95%;
-      z-index: 2000;          /* garante que fica acima do conteúdo */
-    }
+  display: none;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  background: var(--bg);
+  border-bottom: 1px solid #eee;
+  position: fixed;
+  top: 80px;              /* colado ao header (altura do header) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  z-index: 2000;
+}
+
 
     .menu-mobile select,
     .menu-mobile .btn-nav {
