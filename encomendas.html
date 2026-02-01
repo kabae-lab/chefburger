@@ -11,8 +11,8 @@
       margin: 0;
       padding: 0;
       background: #f4f4f4;
-      overflow-x: hidden; /* elimina scroll horizontal */
-      overflow-y: hidden; /* impede scroll global vertical */
+      overflow-x: hidden;
+      overflow-y: hidden;
       max-width: 100vw;
       box-sizing: border-box;
     }
@@ -123,9 +123,11 @@
       overflow: hidden;
     }
     .carrinho-container h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+  text-align: center;
+  margin: 0.4rem 0;   /* reduz espaço acima e abaixo */
+  font-size: 1rem;    /* fonte menor e proporcional */
+  font-weight: bold;  /* mantém destaque institucional */
+}
     .carrinho-scroll {
       flex: 1;
       overflow-y: auto;
@@ -146,14 +148,23 @@
       color: #fff;
       font-weight: bold;
       text-align: center;
+      font-size: 0.85rem;
     }
     table#tabelaCarrinho td {
       text-align: left;
       vertical-align: middle;
+      font-size: 0.8rem;
     }
     table#tabelaCarrinho td:first-child {
       word-break: break-word;
       white-space: normal;
+    }
+    /* Coluna do ✖ compacta */
+    table#tabelaCarrinho th:last-child,
+    table#tabelaCarrinho td:last-child {
+      width: 40px;
+      text-align: center;
+      padding: 0.4rem;
     }
     .quantidade-controle {
       display: flex;
@@ -175,10 +186,11 @@
       background: transparent;
       color: #ff4444;
       border: none;
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: bold;
       cursor: pointer;
-      margin-left: 0.4rem;
+      line-height: 1;
+      margin: 0;
     }
     @media screen and (max-width: 480px) {
       .quantidade-controle {
@@ -249,21 +261,21 @@
   <!-- CARRINHO -->
   <div class="carrinho-container">
     <h2>Encomenda</h2>
-    <div class="carrinho-scroll">
+        <div class="carrinho-scroll">
       <table id="tabelaCarrinho">
         <thead>
           <tr>
             <th>Item</th>
             <th>Preço</th>
-            <th>Quantidade</th>
-            <th>Ações</th>
+            <th>QTT</th>
+            <th>✖</th>
           </tr>
         </thead>
         <tbody id="listaCarrinho"></tbody>
       </table>
     </div>
     <div class="carrinho-footer">
-           <div id="totalCarrinho">Total: 0,00 KZ</div>
+      <div id="totalCarrinho">Total: 0,00 KZ</div>
       <button class="btn-finalizar" onclick="finalizarEncomenda()">✅ Finalizar Encomenda</button>
     </div>
   </div>
